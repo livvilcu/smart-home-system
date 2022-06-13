@@ -12,6 +12,9 @@ const LoginScreen = ({navigation}) => {
     const [password, setPassword] = useState({value: '', error: ''});
 
 
+    /**
+     * if the user is already logged in then he should be redirected to HomeScreen
+     */
     useEffect(() => {
         getUser().then(user => {
            if (user !== null) {
@@ -39,7 +42,7 @@ const LoginScreen = ({navigation}) => {
     return (
         <Background>
             <Appbar.Header>
-                <Appbar.BackAction onPress={() => navigation.navigate('HomeScreen')}/>
+                <Appbar.BackAction onPress={() => navigation.navigate('WelcomeScreen')}/>
             </Appbar.Header>
 
             <Header>Welcome back</Header>

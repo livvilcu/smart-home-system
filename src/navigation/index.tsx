@@ -91,7 +91,7 @@ function HomeScreen() {
 
 /**
  * In the Navigation I tried to define the navigation flow and tried to define screen based on authenticated user.
- * Because the authentication is to be improved, this flow currently does not work as expected :). The isLoggedIn state is not updated as expected.
+ * Because the authentication is to be improved, this flow currently does not work as expected always :). The isLoggedIn state is not updated as expected.
  * @constructor
  */
 function Navigation() {

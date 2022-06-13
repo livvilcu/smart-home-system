@@ -23,6 +23,8 @@ const DevicesScreen = ({navigation}) => {
         getDevices();
     }, []);
 
+
+
     const addNewDevice = () => {
        // TODO: user should be able to connect new devices and assigned them to the rooms. This method should navigate to a new screen for adding a new device.
     }

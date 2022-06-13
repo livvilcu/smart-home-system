@@ -1,12 +1,12 @@
 import {FlatList, View, BackHandler, StyleSheet} from "react-native";
-import React, {memo, useEffect, useState} from "react";
+import React, { memo, useEffect, useState} from "react";
 import {ActivityIndicator, List} from 'react-native-paper';
-import set = Reflect.set;
 
 const RoomsScreen = ({navigation}) => {
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+
 
     const getRooms = async () => {
         try {
@@ -31,28 +31,18 @@ const RoomsScreen = ({navigation}) => {
 
     }, []);
 
-
-    // FIXME: State is not updated for List.Item
-    const [isOn, setIsOn] = useState(false);
-
     const renderItem = (item) => {
         const devices = item.devices;
+
         return (<List.Section>
                 <List.Accordion
                     title={item.title}>
                     <FlatList
                         data={devices}
                         keyExtractor={device => device.deviceId}
-                        renderItem={({item}) => {
-                            // setIsOn(item.state);
-                            return (
-                                <List.Item descriptionStyle={[item.state ? styles.isOn : styles.isOff]}
-                                           title={item.title}
-                                           description={item.state ? "On" : "Off" }
-                                           onPress={() => item.state = !item.state}
-                                />
-                            )
-                        }}
+                        renderItem={({item, index, separators}) => (
+                            <ListItem entry={item}/>
+                        )}
                     />
                 </List.Accordion>
             </List.Section>
@@ -70,9 +60,22 @@ const RoomsScreen = ({navigation}) => {
                 />
             )}
         </View>
-
-
     );
+}
+
+const ListItem = (props) => {
+    const [isOn, setIsOn] = useState(props.entry.state);
+
+    const descriptionStyle = isOn ? styles.isOn : styles.isOff;
+    const description = isOn ? "On" : "Off";
+
+    return(
+        <List.Item descriptionStyle={descriptionStyle}
+                   title={props.entry.title}
+                   description={description}
+                   onPress={() => setIsOn(!isOn)}
+        />
+    )
 }
 
 const styles = StyleSheet.create({
