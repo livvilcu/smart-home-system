@@ -1,6 +1,7 @@
 import {FlatList, View, BackHandler, StyleSheet} from "react-native";
 import React, {memo, useEffect, useState} from "react";
 import {ActivityIndicator, List} from 'react-native-paper';
+import set = Reflect.set;
 
 const RoomsScreen = ({navigation}) => {
 
@@ -30,6 +31,10 @@ const RoomsScreen = ({navigation}) => {
 
     }, []);
 
+
+    // FIXME: State is not updated for List.Item
+    const [isOn, setIsOn] = useState(false);
+
     const renderItem = (item) => {
         const devices = item.devices;
         return (<List.Section>
@@ -39,11 +44,12 @@ const RoomsScreen = ({navigation}) => {
                         data={devices}
                         keyExtractor={device => device.deviceId}
                         renderItem={({item}) => {
+                            // setIsOn(item.state);
                             return (
                                 <List.Item descriptionStyle={[item.state ? styles.isOn : styles.isOff]}
                                            title={item.title}
                                            description={item.state ? "On" : "Off" }
-                                           onPress={() => navigation.navigate("DetailDeviceView", {item: item})}
+                                           onPress={() => item.state = !item.state}
                                 />
                             )
                         }}

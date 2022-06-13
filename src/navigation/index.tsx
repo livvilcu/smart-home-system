@@ -25,12 +25,17 @@ function NotificationsScreen() {
  * In the Settings screen we should find account specific settings. Currently, for testing there is just the logout button.
  * @constructor
  */
-function SettingsScreen() {
+function SettingsScreen({navigation}) {
 
     // FIXME: method is not redirecting the user to login page after pressing logout.
-    const logOut = async () => {
+    // const logOut = async () => {
+    //
+    // };
+
+    const logOut = () => {
+        navigation.navigate("LoginScreen");
         return AsyncStorage.removeItem("user");
-    };
+    }
 
     return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -120,6 +125,7 @@ function Navigation() {
                     <Stack.Screen name="RoomsScreen" component={RoomsScreen}/>
                     <Stack.Screen name="DetailDeviceView" component={DetailDeviceView}/>
                     <Stack.Screen name="DevicesScreen" component={DevicesScreen}/>
+                    <Stack.Screen name="LoginScreen" component={LoginScreen}/>
                 </Stack.Navigator>
             </NavigationContainer>
         )
